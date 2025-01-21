@@ -1,0 +1,18 @@
+services:
+  solid-todo:
+    build: solid-todo
+    container_name: solid-todo
+
+    volumes:
+      - solid-todo-dist:/app/dist
+
+  nginx:
+    image: nginx:1.27.3-alpine
+    container_name: reverse-proxy
+    ports:
+      - "8000:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - solid-todo-dist:/usr/share/nginx/html
+volumes:
+  solid-todo-dist:
