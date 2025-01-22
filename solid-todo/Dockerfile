@@ -12,6 +12,8 @@ RUN npm run build
 
 
 
-FROM alpine:3.21
+FROM nginx:1.27.3-alpine
 
-COPY --from=builder /app/dist /app/dist
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+CMD ["nginx", "-g", "daemon off;"]
